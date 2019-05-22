@@ -22,16 +22,14 @@ END;
 $$ language plpgsql;
 
 --
--- find all activities
+-- find all activities (version param OUT)
 --
-CREATE OR REPLACE FUNCTION find_all_activities(activities_curs refcursor) RETURNS refcursor AS $$
+CREATE OR REPLACE FUNCTION find_all_activities(OUT activities_curs refcursor) AS $$
 begin
     open activities_curs FOR
         select act.id as id, title, description, creation_date, modification_date, owner_id, username
         from activity act left join "user" owner
                                     on act.owner_id = owner.id
         order by title, username;
-    return activities_curs;
 END;
 $$ language plpgsql;
-
