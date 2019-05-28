@@ -21,5 +21,11 @@ public class ActivityController {
         model.addAttribute("activities", activityList);
         return "index";
     }
+    
+    @GetMapping("/fixActivities")
+    public String fixActivities(Model model) {
+        activityDAOService.fixActivities();
+        return allActivities(model);
+    }
 
 }
